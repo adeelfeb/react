@@ -1,11 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
+import Card from './components/Card'; // Adjust the path if necessary
+
 import './App.css'
 import { ThemeProvider } from './contexts/Theme'
+import ThemeBtn from './components/Themebtn'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [themeMode, setThemeMode] = useState("light")
+  const DarkMode= ()=>{
+    setThemeMode("dark")
+  }
+  const LightMode= ()=>{
+    setThemeMode("light")
+  }
+
+  useEffect(()=>{
+    let ModeChanger = document.querySelector("html").classList
+    ModeChanger.remove("light", "dark")
+    ModeChanger.add(themeMode)
+  },[themeMode])
 
   return (
    
@@ -13,11 +26,11 @@ function App() {
             <div className="flex flex-wrap min-h-screen items-center">
                 <div className="w-full">
                     <div className="w-full max-w-sm mx-auto flex justify-end mb-4">
-                        {/* Theme button */}
+                        <ThemeBtn/>
                     </div>
 
                     <div className="w-full max-w-sm mx-auto">
-                       {/* Cards */}
+                       <Card/>
                     </div>
                 </div>
             </div>
