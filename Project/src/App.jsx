@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0);
+  console.log("The website is running now")
 
   return (
     <>
