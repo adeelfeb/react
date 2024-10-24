@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function App() {
-  console.log("The website is running now")
+  
 
   return (
     <>
