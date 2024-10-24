@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <h1 className="font-bold">This is just !!@</h1>
+      <h1 className="font-bold">This is !!@ {import.meta.env.VITE_APPWRITE_URL}</h1>
     </>
   );
 }
