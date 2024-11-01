@@ -62,4 +62,4 @@ class AuthService{
 
 const authService = new AuthService()
 
-export default authservice
+export default authService
