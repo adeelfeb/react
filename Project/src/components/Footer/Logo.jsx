@@ -1,15 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 function Logo() {
   return (
-    <div>
-      <img
-        src="https://via.placeholder.com/50?text=Watch+Post"
-        alt="Amaze Post"
-        style={{ width: '45px', height: 'auto' }}
-      />
-    </div>
-  );
+    <div>Logo</div>
+  )
 }
 
-export default Logo;
+export default Logo
