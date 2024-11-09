@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "just the random learning backend",
   "main": "index.js",
-  "type": "module", 
+  "type": "module",
   "scripts": {
     "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.1"
   }
 }
