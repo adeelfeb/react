@@ -9,8 +9,11 @@ function App() {
   useEffect(() => {
     // Use the full Stackblitz URL
     //axios by default converts the data from the json format 
-    axios.get("/api/quotes")
-      .then((response) => {
+
+    
+    // axios.get("https://react-swpk--80--f565b097.local-credentialless.webcontainer.io/api/quotes")
+    axios.get("/api/quotes")  
+    .then((response) => {
         setQuotes(response.data);
       })
       .catch((error) => {

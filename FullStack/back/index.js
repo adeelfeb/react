@@ -31,19 +31,32 @@ app.get('/', (req, res) => {
 
 // Route to get all quotes or a random quote
 app.get('/api/quotes', (req, res) => {
+    console.log("Received request for quotes", req.query);  // Log request query
     const random = req.query.random;
 
-    // If the `random` query parameter is set, return a random quote
     if (random === 'true') {
         const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
         res.json(randomQuote);
-        res.send(randomQuote)
+        // res.send(randomQuote)
     } else {
-        // Otherwise, return all quotes
         res.json(quotes);
-        res.send(quotes)
     }
 });
+
+// app.get('/api/quotes', (req, res) => {
+//     const random = req.query.random;
+
+//     // If the `random` query parameter is set, return a random quote
+//     if (random === 'true') {
+//         const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+//         res.json(randomQuote);
+//         // res.send(randomQuote)
+//     } else {
+//         // Otherwise, return all quotes
+//         res.json(quotes);
+//         // res.send(quotes)
+//     }
+// });
 
 const port = process.env.PORT || 80;
 
