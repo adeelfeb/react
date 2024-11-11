@@ -5,8 +5,8 @@ import Logo from './Footer/Logo'
 import LogOutBtn from "./Header/LogOutBtn";
 import Button from './Button'
 import RTE from "./RTE";
-import Signup from "../pages/Signup";
-import Login from "../pages/Login";
+import Signup from "./Signup";
+import Login from "./Login";
 import PostForm from './post-from/PostForm'
 import PostCard from "./PostCard"
 import AuthLayout from "./AuthLayout";
