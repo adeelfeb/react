@@ -5,6 +5,10 @@ import Logo from './Footer/Logo'
 import LogOutBtn from "./Header/LogOutBtn";
 import Button from './Button'
 import RTE from "./RTE";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+
+
 
 export {
     Header,
@@ -13,5 +17,7 @@ export {
     Logo,
     LogOutBtn,
     Button,
-    RTE
+    RTE,
+    Signup,
+    Login
 }
