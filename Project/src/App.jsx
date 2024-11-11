@@ -65,6 +65,7 @@ import { login, logout } from './store/authSlice';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { Outlet } from 'react-router-dom';
+// import { Login } from './components';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -108,7 +109,9 @@ function App() {
           </>
         )}
       </main>
+      
       <Footer />
+      {/* <Login/> */}
     </div>
   );
 }
