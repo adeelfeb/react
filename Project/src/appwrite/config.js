@@ -153,24 +153,48 @@ export class Service {
     this.bucket = new Storage(this.client);
   }
 
+  // async createPost({ title, featureImage, slug, content, status, userId }) {
+  //   try {
+  //     return await this.databases.createDocument(
+  //       conf.appwriteDatabaseId,
+  //       conf.appwriteCollectionId,
+  //       slug,
+  //       {
+  //         title,
+  //         content,
+  //         status,
+  //         userId,
+  //         featureImage,
+  //       }
+  //     );
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
   async createPost({ title, featureImage, slug, content, status, userId }) {
     try {
-      return await this.databases.createDocument(
-        conf.appwriteDatabaseId,
-        conf.appwriteCollectionId,
-        slug,
-        {
-          title,
-          content,
-          status,
-          userId,
-          featureImage,
+        // Ensure featuredImage is passed correctly to match your Appwrite collection schema
+        if (!featureImage) {
+            throw new Error("featuredImage is required");
         }
-      );
+
+        return await this.databases.createDocument(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId,
+            slug,
+            {
+                title,
+                content,
+                status,
+                userId,
+                featuredImage: featureImage, // Ensure it matches the schema
+            }
+        );
     } catch (error) {
-      throw error;
+        throw error;
     }
-  }
+}
+
 
   async updatePost(slug, { title, featureImage, content, status }) {
     try {

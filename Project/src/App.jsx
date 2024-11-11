@@ -102,9 +102,7 @@ function App() {
           </p>
         ) : (
           <>
-            <h1 className="text-2xl font-bold bg-pink-200 p-4 rounded-lg shadow">
-              Welcome! URL: {import.meta.env.VITE_APPWRITE_URL}
-            </h1>
+            
             <Outlet /> {/* Render child routes here */}
           </>
         )}
