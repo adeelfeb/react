@@ -111,7 +111,6 @@ function App() {
       </main>
       
       <Footer />
-      <Login/>
     </div>
   );
 }
