@@ -25,11 +25,11 @@ export class AuthService {
             if (coverImage) {
                 formData.append('coverImage', coverImage);
             }
-
+            console.log(email,password,fullname,username,avatar,coverImage)
             console.log("Sending data to backend:", this.apiUrl, formData);
             
             // Send the request to the backend to create an account with images (if provided)
-            const response = await axios.post(`${this.apiUrl}/api/v1/users/register`, formData, {
+            const response = await axios.post(`${this.apiUrl}/users/register`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'  // Important for file uploads
                 }
