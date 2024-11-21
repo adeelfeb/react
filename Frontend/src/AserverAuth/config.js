@@ -11,6 +11,7 @@ class VideoService {
     async addVideo(videoUrl) {
         try {
             // Get the access token from localStorage
+            console.log("In the VideoService/addVideo")
             const accessToken = localStorage.getItem('accessToken');
 
             if (!accessToken) {

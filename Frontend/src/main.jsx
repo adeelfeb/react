@@ -206,6 +206,7 @@ import Login from './pages/Login'
 import Post from './pages/Post';
 
 import AllPosts from './pages/AllPost';
+import InputURL from './pages/InputURL.jsx'
 
 const router = createBrowserRouter([
   {
@@ -246,7 +247,7 @@ const router = createBrowserRouter([
             element: (
                 <AuthLayout authentication>
                     {" "}
-                    <AddPost />
+                    <InputURL />
                 </AuthLayout>
             ),
         },
