@@ -60,7 +60,7 @@
 
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import authService from './appwrite/auth';
+import authService from './AserverAuth/auth';
 import { login, logout } from './store/authSlice';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';

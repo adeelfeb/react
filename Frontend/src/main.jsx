@@ -233,7 +233,7 @@ const router = createBrowserRouter([
             ),
         },
         {
-            path: "/all-posts",
+            path: "/history",
             element: (
                 <AuthLayout authentication>
                     {" "}
@@ -242,7 +242,7 @@ const router = createBrowserRouter([
             ),
         },
         {
-            path: "/add-post",
+            path: "/add-url",
             element: (
                 <AuthLayout authentication>
                     {" "}
