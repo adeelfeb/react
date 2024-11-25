@@ -13,19 +13,37 @@ class VideoService {
             // Get the access token from localStorage
             console.log("In the VideoService/addVideo")
             const accessToken = localStorage.getItem('accessToken');
-
+            console.log(accessToken)
             if (!accessToken) {
                 console.log('No access token found in localStorage');
                 return null; // Return null if access token is not found
             }
 
+
+            // const tresponse = await axios.post(`${this.apiUrl}/users/login`, { email, password }, {
+            //     headers: {
+            //         'Content-Type': 'application/json',  // Changed to application/json since no file is involved
+            //     },
+            //     withCredentials: false,  // Ensure cookies are sent with the request
+            // });
+
             // Prepare the POST request to add the video to the watch history
+            // const response = await axios.post(
+            //     `${this.apiUrl}/users/current-user`, // API endpoint
+            //     {}, // No data needed for this request
+            //     {
+            //         headers: {
+            //             "Authorization": `Bearer ${accessToken}`, // Attach the access token to the Authorization header
+            //         },
+            //         withCredentials: false,  // Ensure cookies are sent with the request
+            //     }
+            // );
             const response = await axios.post(
-                `${this.apiUrl}/video/addVideo`, // API endpoint for adding the video
+                `${this.apiUrl}/users/addVideo`, // API endpoint for adding the video
                 { videoUrl }, // Send the video URL in the request body
                 {
                     headers: {
-                        'Authorization': `Bearer ${accessToken}`, // Attach the access token in the Authorization header
+                        "Authorization": `Bearer ${accessToken}`, // Attach the access token in the Authorization header
                     },
                     withCredentials: false, // No need to send cookies with this request
                 }

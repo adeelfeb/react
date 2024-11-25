@@ -1,19 +1,25 @@
 import React from 'react';
 
 const VideoDetails = ({ data }) => {
+  console.log("The Embeding here",data.videoDetails?.embed?.iframeUrl)
   return (
     
     <div className="mt-4">
         <div className="mt-4">
         <h4 className="font-semibold">Embed URL:</h4>
-        <iframe
-          src={data.videoDetails?.embed?.iframeUrl}
-          width={data.videoDetails?.embed?.width}
-          height={data.videoDetails?.embed?.height}
+          <iframe
+          src={
+            data.videoUrl
+              ? `https://www.youtube.com/embed/${data.videoUrl.split("v=")[1]?.split("&")[0]}`
+              : ""
+          }
+          width={data.videoDetails?.embed?.width || "560"} // Default width
+          height={data.videoDetails?.embed?.height || "315"} // Default height
           title="YouTube Video"
           frameBorder="0"
           allowFullScreen
         ></iframe>
+
       </div>
       <div className="mb-4">
         <p><strong>Title:</strong> {data.title}</p>
