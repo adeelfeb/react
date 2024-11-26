@@ -9,6 +9,7 @@ const conf = {
         const baseUrl = String(import.meta.env.VITE_API_URL) || 'http://localhost:8000';
         return baseUrl.endsWith('/api/v1') ? baseUrl : `${baseUrl}/api/v1`;
     })(),
+    googleClientId: String(import.meta.env.VITE_GOOGLE_CLIENT_ID)
 };
 
 export default conf;

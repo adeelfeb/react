@@ -1,79 +1,58 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    status : false,
-    userData: null
-}
+    status: false,
+    userData: {
+        _id: null,
+        username: null,
+        email: null,
+        fullname: null,
+        avatar: null,
+        coverImage: null,
+        watchHistory: [],
+        createdAt: null,
+        updatedAt: null,
+        __v: null,
+    },
+};
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
         login: (state, action) => {
-            state.status = true;
-            state.userData = action.payload.userData;
+            state.status = true;  // Assuming the status is true when logged in
+            state.userData = {
+                _id: action.payload._id,
+                username: action.payload.username,
+                email: action.payload.email,
+                fullname: action.payload.fullname,
+                avatar: action.payload.avatar,
+                coverImage: action.payload.coverImage,
+                watchHistory: action.payload.watchHistory,
+                createdAt: action.payload.createdAt,
+                updatedAt: action.payload.updatedAt,
+                __v: action.payload.__v,
+            };
         },
         logout: (state) => {
             state.status = false;
-            state.userData = null;
-        }
-     }
-})
+            state.userData = {
+                _id: null,
+                username: null,
+                email: null,
+                fullname: null,
+                avatar: null,
+                coverImage: null,
+                watchHistory: [],
+                createdAt: null,
+                updatedAt: null,
+                __v: null,
+            };
+        },
+    },
+});
 
-export const {login, logout} = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 
 export default authSlice.reducer;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-////////////--------------------------------------MISTAKE---------------------------
-// import { createSlice } from '@reduxjs/toolkit';
-
-// // Define the initial state of the auth slice
-// const initialState = {
-//     status: false,
-//     userData: null,
-// };
-
-// // Create the auth slice
-// const authSlice = createSlice({
-//     name: 'auth',
-//     initialState,
-//     reducers: {
-//         // Reducer for logging in the user
-//         login: (state, action) => {
-//             state.status = true;
-//             state.userData = action.payload;
-//         },
-//         // Reducer for logging out the user
-//         logout: (state) => {
-//             state.status = false;
-//             state.userData = null;
-//         }
-//     }
-// });
-
-// // Export the action creators
-// export const { login, logout } = authSlice.actions;
-
-// // Export the reducer as the default export
-// export default authSlice.reducer;

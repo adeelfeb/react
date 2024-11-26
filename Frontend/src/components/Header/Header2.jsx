@@ -1,187 +1,120 @@
-// import React from "react";
-// import {
-//   Navbar,
-//   MobileNav,
-//   Typography,
-//   Button,
-//   IconButton,
-// } from "@material-tailwind/react";
-
-// export default function Header2() {
-//   const [openNav, setOpenNav] = React.useState(false);
-
-//   React.useEffect(() => {
-//     window.addEventListener(
-//       "resize",
-//       () => window.innerWidth >= 960 && setOpenNav(false)
-//     );
-//   }, []);
-
-//   const navList = (
-//     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-//       {["Pages", "Account", "Blocks"].map((item) => (
-//         <Typography
-//           key={item}
-//           as="li"
-//           variant="small"
-//           className="flex items-center gap-x-2 p-1 font-medium text-white neon-text"
-//         >
-//           <a href="#" className="flex items-center">
-//             {item}
-//           </a>
-//         </Typography>
-//       ))}
-//     </ul>
-//   );
-
-//   return (
-//     <Navbar className="mx-auto my-2 rounded-lg bg-dark-neon p-2">
-//       <div className="container mx-auto flex items-center justify-between text-white">
-//         <Typography
-//           as="a"
-//           href="#"
-//           variant="h5"
-//           className="mr-4 cursor-pointer py-1.5 font-bold neon-text"
-//         >
-//           NeonNav
-//         </Typography>
-//         <div className="hidden lg:block">{navList}</div>
-//         <Button
-//           variant="gradient"
-//           size="sm"
-//           className="hidden lg:inline-block neon-button"
-//         >
-//           <span>Get Started</span>
-//         </Button>
-//         <IconButton
-//           variant="text"
-//           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-//           ripple={false}
-//           onClick={() => setOpenNav(!openNav)}
-//         >
-//           <svg
-//             xmlns="http://www.w3.org/2000/svg"
-//             fill="none"
-//             className="h-6 w-6"
-//             viewBox="0 0 24 24"
-//             stroke="currentColor"
-//             strokeWidth={2}
-//           >
-//             <path
-//               strokeLinecap="round"
-//               strokeLinejoin="round"
-//               d="M4 6h16M4 12h16m-7 6h7"
-//             />
-//           </svg>
-//         </IconButton>
-//       </div>
-//       <MobileNav open={openNav}>
-//         {navList}
-//         <Button
-//           variant="gradient"
-//           size="sm"
-//           fullWidth
-//           className="mb-2 neon-button"
-//         >
-//           <span>Get Started</span>
-//         </Button>
-//       </MobileNav>
-//     </Navbar>
-//   );
-// }
 import React from 'react';
+import { Container, Logo, LogOutBtn } from '../index';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import ProfileHeader from './ProfileHeader';  // Import the ProfileHeader component
 
-const Header2 = ({ logoImage }) => {
-  const headerStyle = {
-    backgroundColor: '#1a1a2e',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '10px 20px',
-    boxShadow: '0 0 10px #0f0f3e, inset 0 0 5px #0f0f3e',
-  };
+function Header() {
+  const authStatus = useSelector((state) => state.auth.status);
+  const user = useSelector((state) => state.auth.userData);
+  console.log(authStatus, user);
 
-  const neonTextStyle = {
-    color: '#ffffff',
-    textShadow: '0 0 3px #ffffff, 0 0 6px #ffffff, 0 0 10px #ffffff',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-  };
-
-  const buttonStyle = {
-    color: '#ffffff',
-    background: 'linear-gradient(45deg, #ff0080, #ff6600)',
-    padding: '8px 16px',
-    fontSize: '1rem',
-    fontWeight: 'bold',
-    border: 'none',
-    borderRadius: '25px',
-    cursor: 'pointer',
-    boxShadow: '0 0 8px #ff0080, 0 0 15px #ff6600',
-    transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
-  };
-
-  const buttonHoverStyle = {
-    boxShadow: '0 0 12px #ff0080, 0 0 25px #ff6600',
-    transform: 'scale(1.05)',
-  };
-
-  const logoStyle = {
-    height: '50px',
-    width: '50px',
-    borderRadius: '50%',
-    boxShadow: '0 0 8px #ff0080, 0 0 12px #ff6600',
-  };
-
-  const navStyle = {
-    display: 'flex',
-    gap: '20px',
-    alignItems: 'center',
-  };
+  const navItems = [
+    { name: 'Home', slug: '/', active: !authStatus },
+    { name: 'Login', slug: '/login', active: !authStatus },
+    { name: 'Signup', slug: '/signup', active: !authStatus },
+    { name: 'History', slug: '/history', active: authStatus },
+    { name: 'Add url', slug: '/add-url', active: authStatus },
+  ];
 
   return (
-    <header style={headerStyle}>
-      {/* Logo Section */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        {logoImage ? (
-          <img src={logoImage} alt="Logo" style={logoStyle} />
-        ) : (
-          <h1 style={neonTextStyle}>My App</h1>
-        )}
-      </div>
-
-      {/* Navigation Section */}
-      <nav style={navStyle}>
-        <a href="/home" style={{ color: '#ffffff', textDecoration: 'none', fontSize: '1rem' }}>
-          Home
-        </a>
-        <a href="/about" style={{ color: '#ffffff', textDecoration: 'none', fontSize: '1rem' }}>
-          About
-        </a>
-        <a href="/contact" style={{ color: '#ffffff', textDecoration: 'none', fontSize: '1rem' }}>
-          Contact
-        </a>
-      </nav>
-
-      {/* Button Section */}
-      <div style={{ display: 'flex', gap: '10px' }}>
-        <button
-          style={buttonStyle}
-          onMouseEnter={(e) => Object.assign(e.target.style, buttonHoverStyle)}
-          onMouseLeave={(e) => Object.assign(e.target.style, buttonStyle)}
-        >
-          Login
-        </button>
-        <button
-          style={buttonStyle}
-          onMouseEnter={(e) => Object.assign(e.target.style, buttonHoverStyle)}
-          onMouseLeave={(e) => Object.assign(e.target.style, buttonStyle)}
-        >
-          Sign Up
-        </button>
-      </div>
-    </header>
+    <>
+      {/* Conditionally render ProfileHeader if the user is logged in */}
+      {authStatus && user ? (
+        <ProfileHeader />
+      ) : (
+        <header className="py-3 shadow bg-gray-500">
+          <Container>
+            <nav className="flex">
+              <div className="mr-4">
+                <Link to="/">
+                  <Logo width="70px" />
+                </Link>
+              </div>
+              <ul className="flex ml-auto">
+                {navItems.map((item) =>
+                  item.active ? (
+                    <li key={item.name}>
+                      <Link
+                        to={item.slug}
+                        className="inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ) : null
+                )}
+              </ul>
+            </nav>
+          </Container>
+        </header>
+      )}
+    </>
   );
-};
+}
 
-export default Header2;
+export default Header;
+
+
+// import React from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { Link } from 'react-router-dom';
+// import authService from '../../AserverAuth/auth';
+
+// function ProfileHeader() {
+//   const user = useSelector((state) => state.auth.userData);
+//   const dispatch = useDispatch()
+//   const logoutHandler = ()=>{
+//     authService.logout().then(()=>{
+//       dispatch(logout())
+//       navigate('/login'); // Redirect to the login page
+//     })
+//   }
+
+//   if (!user) return null; // Ensure user data exists before rendering
+  
+//   return (
+//     <header className="bg-gray-800 text-white py-6">
+//       <div className="container mx-auto">
+//         {/* Cover Image */}
+//         <div className="relative">
+//           <img
+//             src={user.coverImage || 'https://res.cloudinary.com/dk06hi9th/image/upload/v1732198259/dbkm9wciwhs8njns81de.jpg'}
+//             alt="Cover"
+//             className="w-full h-48 object-cover rounded-lg"
+//           />
+//           {/* Profile Image in Circle */}
+//           <div className="absolute left-0 right-0 bottom-0 flex justify-center">
+//             <img
+//               src={user.avatar || 'https://res.cloudinary.com/dk06hi9th/image/upload/v1732198388/zgwzdyhy3nldkk2inxpl.jpg'}
+//               alt="Profile"
+//               className="w-24 h-24 rounded-full border-4 border-white -mb-12 object-cover"
+//             />
+//           </div>
+//         </div>
+
+//         {/* Profile Info & Buttons */}
+//         <div className="text-center mt-10">
+//           <h1 className="text-3xl font-semibold">{user.fullname}</h1>
+//           <p className="text-xl text-gray-300">@{user.username}</p>
+//           <div className="mt-6">
+//             <Link
+//               to="/history"
+//               className="px-6 py-2 bg-blue-500 text-white rounded-full mr-4 hover:bg-blue-600"
+//             >
+//               History
+//             </Link>
+//             <button
+//               onClick={logoutHandler}
+//               className="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600"
+//             >
+//               Logout
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//     </header>
+//   );
+// }
+
+// export default ProfileHeader;
