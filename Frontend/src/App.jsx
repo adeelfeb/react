@@ -33,7 +33,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 text-gray-800">
       <Header />
-      <main className="flex flex-grow flex-col items-center justify-center px-4 py-8 bg-white shadow-md rounded-lg m-4">
+      <main className="flex flex-grow flex-col px-4 py-8 bg-white shadow-md rounded-lg m-4">
         {loading ? (
           <p className="text-blue-600 text-lg animate-pulse">Loading...</p>
         ) : error ? (

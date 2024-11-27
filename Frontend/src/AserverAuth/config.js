@@ -11,33 +11,14 @@ class VideoService {
     async addVideo(videoUrl) {
         try {
             // Get the access token from localStorage
-            console.log("In the VideoService/addVideo")
+            // console.log("In the VideoService/addVideo")
             const accessToken = localStorage.getItem('accessToken');
-            console.log(accessToken)
+            // console.log(accessToken)
             if (!accessToken) {
                 console.log('No access token found in localStorage');
                 return null; // Return null if access token is not found
             }
-
-
-            // const tresponse = await axios.post(`${this.apiUrl}/users/login`, { email, password }, {
-            //     headers: {
-            //         'Content-Type': 'application/json',  // Changed to application/json since no file is involved
-            //     },
-            //     withCredentials: false,  // Ensure cookies are sent with the request
-            // });
-
-            // Prepare the POST request to add the video to the watch history
-            // const response = await axios.post(
-            //     `${this.apiUrl}/users/current-user`, // API endpoint
-            //     {}, // No data needed for this request
-            //     {
-            //         headers: {
-            //             "Authorization": `Bearer ${accessToken}`, // Attach the access token to the Authorization header
-            //         },
-            //         withCredentials: false,  // Ensure cookies are sent with the request
-            //     }
-            // );
+            
             const response = await axios.post(
                 `${this.apiUrl}/users/addVideo`, // API endpoint for adding the video
                 { videoUrl }, // Send the video URL in the request body
@@ -49,7 +30,7 @@ class VideoService {
                 }
             );
 
-            console.log('Video added to watch history:', response.data); // Log the response data
+            // console.log('Video added to watch history:', response.data); // Log the response data
             return response.data; // Return the response data (e.g., success message or video data)
         } catch (error) {
             console.error('Error adding video to watch history:', error);

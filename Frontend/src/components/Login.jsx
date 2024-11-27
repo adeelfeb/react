@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { setLoginStatus, setUserData  } from '../store/authSlice';
+import { setLoginStatus, setUserData } from '../store/authSlice';
 import { Button, Input, Logo } from "./index";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import authService from "../AserverAuth/auth";
 import { useForm } from "react-hook-form";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
@@ -12,15 +12,27 @@ function Login() {
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false); // Loading state
 
     // Success and failure handlers for Google Login
-    const handleGoogleSuccess = (credentialResponse) => {
+    const handleGoogleSuccess = async (credentialResponse) => {
         const { credential } = credentialResponse;
-        authService.googleLogin({ tokenId: credential }).then(response => {
+        setLoading(true); // Start loading
+        try {
+            const response = await authService.googleLogin({ tokenId: credential });
             console.log('Backend response:', response);
-        }).catch(error => {
+            
+            // Assuming successful login also retrieves user data
+            const userData = await authService.getCurrentUser();
+            dispatch(setUserData(userData));
+            dispatch(setLoginStatus(true));
+
+        } catch (error) {
             console.error('Login failed:', error);
-        });
+            setError(error.response ? error.response.data.message : error.message);
+        } finally {
+            setLoading(false); // Stop loading
+        }
     };
 
     const handleGoogleFailure = () => {
@@ -29,34 +41,37 @@ function Login() {
 
     // Handle login attempt
     const login = async (data) => {
-    setError("");  // Clear any previous errors
-    try {
-        const { accessToken, refreshToken } = await authService.login({
-            emailOrUsername: data.email,  
-            password: data.password
-        });
+        setError(""); // Clear any previous errors
+        setLoading(true); // Start loading
+        try {
+            const { accessToken, refreshToken } = await authService.login({
+                emailOrUsername: data.email,
+                password: data.password
+            });
 
-        // console.log("The login response here", accessToken, refreshToken);
+            const userData = await authService.getCurrentUser();
 
-        const userData = await authService.getCurrentUser()
-        // console.log("The login page data is:", userData)
+            // Dispatch the user data to Redux store
+            dispatch(setUserData(userData));
+            dispatch(setLoginStatus(true));
 
-        // Dispatch the user data to Redux store
-        
-        dispatch(setUserData(userData))
-        dispatch(setLoginStatus(true));
-
-        // Redirect to the dashboard after successful login
-        navigate("/dashboard");
-
-    } catch (error) {
-        setError(error.response ? error.response.data.message : error.message);
-    }
-};
-
+            // Redirect to the dashboard after successful login
+            navigate("/dashboard");
+        } catch (error) {
+            setError(error.response ? error.response.data.message : error.message);
+        } finally {
+            setLoading(false); // Stop loading
+        }
+    };
 
     return (
         <div className='flex items-center justify-center w-full'>
+            {loading && ( // Conditional rendering for loading screen
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75 z-50">
+                    <div className="w-16 h-16 border-4 border-primary rounded-full border-t-transparent animate-spin"></div>
+                </div>
+            )}
+
             <div className='mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10'>
                 <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
@@ -73,8 +88,18 @@ function Login() {
                 {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
                 <form onSubmit={handleSubmit(login)} className='mt-8'>
                     <div className='space-y-5'>
-                        <Input label="Email / Username" placeholder="Enter your email or username" type="text" {...register("email", { required: "Email or Username is required" })} />
-                        <Input label="Password" type="password" placeholder="Enter your password" {...register("password", { required: "Password is required" })} />
+                        <Input 
+                            label="Email / Username" 
+                            placeholder="Enter your email or username" 
+                            type="text" 
+                            {...register("email", { required: "Email or Username is required" })} 
+                        />
+                        <Input 
+                            label="Password" 
+                            type="password" 
+                            placeholder="Enter your password" 
+                            {...register("password", { required: "Password is required" })} 
+                        />
                         <Button type="submit" className="w-full">Sign in</Button>
 
                         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
