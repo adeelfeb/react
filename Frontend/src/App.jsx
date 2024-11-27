@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import authService from './AserverAuth/auth';
-import { login, logout } from './store/authSlice';
+import { setLoginStatus, setUserData, logout } from './store/authSlice';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { Outlet } from 'react-router-dom';
-import Header2 from "./components/Header/Header2"
-import Login from './pages/Login';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -17,14 +15,15 @@ function App() {
     authService.getCurrentUser()
       .then((userData) => {
         if (userData) {
-          dispatch(login({ userData }));
+          dispatch(setLoginStatus(true)); // Assuming `setLoginStatus` expects a boolean
+          dispatch(setUserData(userData)); // Pass user data directly
         } else {
           dispatch(logout());
         }
       })
       .catch((error) => {
         console.error("Error fetching current user:", error);
-        setError("Failed to load user data.");
+        setError(error.message || "Failed to load user data.");
       })
       .finally(() => {
         setLoading(false);
@@ -42,20 +41,12 @@ function App() {
             Error: {error}
           </p>
         ) : (
-          <>
-            
-            <Outlet /> {/* Render child routes here */}
-          </>
+          <Outlet /> // Render child routes here
         )}
       </main>
-      
       <Footer />
     </div>
   );
 }
 
 export default App;
-
-
-
-

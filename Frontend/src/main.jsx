@@ -207,6 +207,7 @@ import Post from './pages/Post';
 
 import AllPosts from './pages/AllPost';
 import InputURL from './pages/InputURL.jsx'
+import Dashboard from './components/Header/DashBoard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -230,6 +231,14 @@ const router = createBrowserRouter([
             element: (
                 <AuthLayout authentication={false}>
                     <Signup />
+                </AuthLayout>
+            ),
+        },
+        {
+            path: "/dashboard",
+            element: (
+                <AuthLayout authentication>
+                    <Dashboard />
                 </AuthLayout>
             ),
         },

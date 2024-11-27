@@ -1,8 +1,6 @@
-
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login as authLogin } from '../store/authSlice';
+import { setLoginStatus, setUserData  } from '../store/authSlice';
 import { Button, Input, Logo } from "./index";
 import { useDispatch, useSelector } from "react-redux";
 import authService from "../AserverAuth/auth";
@@ -31,26 +29,31 @@ function Login() {
 
     // Handle login attempt
     const login = async (data) => {
-        setError("");  // Clear any previous errors
-        try {
-            const { user } = await authService.login({
-                emailOrUsername: data.email,  
-                password: data.password
-            });
-            console.log("The login response here", user)
+    setError("");  // Clear any previous errors
+    try {
+        const { accessToken, refreshToken } = await authService.login({
+            emailOrUsername: data.email,  
+            password: data.password
+        });
 
-            // Dispatch the user data to Redux store
-            dispatch(authLogin({
-                user
-            }));
+        // console.log("The login response here", accessToken, refreshToken);
 
-            // Redirect to home page after successful login
-            navigate("/");
+        const userData = await authService.getCurrentUser()
+        // console.log("The login page data is:", userData)
 
-        } catch (error) {
-            setError(error.response ? error.response.data.message : error.message);
-        }
-    };
+        // Dispatch the user data to Redux store
+        
+        dispatch(setUserData(userData))
+        dispatch(setLoginStatus(true));
+
+        // Redirect to the dashboard after successful login
+        navigate("/dashboard");
+
+    } catch (error) {
+        setError(error.response ? error.response.data.message : error.message);
+    }
+};
+
 
     return (
         <div className='flex items-center justify-center w-full'>

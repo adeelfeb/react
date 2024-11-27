@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import authService from '../../AserverAuth/auth';
+import { logout } from '../../store/authSlice';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ProfileHeader() {
   const user = useSelector((state) => state.auth.userData);
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const logoutHandler = ()=>{
     authService.logout().then(()=>{
@@ -40,12 +42,7 @@ function ProfileHeader() {
           <h1 className="text-3xl font-semibold">{user.fullname}</h1>
           <p className="text-xl text-gray-300">@{user.username}</p>
           <div className="mt-6">
-            <Link
-              to="/history"
-              className="px-6 py-2 bg-blue-500 text-white rounded-full mr-4 hover:bg-blue-600"
-            >
-              History
-            </Link>
+           
             <button
               onClick={logoutHandler}
               className="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600"
