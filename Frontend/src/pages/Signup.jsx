@@ -1,9 +1,12 @@
 import React from 'react'
-import { Signup as SignupComponent } from '../components'
+import { Footer, Signup as SignupComponent } from '../components'
 function Signup() {
   return (
-    <div className='py-8'>
+    <div>
+    <div className='min-h-screen flex items-center justify-center'>
         <SignupComponent/>
+    </div>
+    <Footer/>
     </div>
   )
 }

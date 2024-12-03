@@ -7,53 +7,6 @@ export class AuthService {
     constructor() {
         this.apiUrl = conf.apiUrl;  // API base URL from the configuration (e.g., `http://localhost:8000/api/v1`)
     }
-
-    
-
-     
-    // async createAccount({ email, password, fullname, username, avatar, coverImage }) {
-    //     try {
-    //         // Prepare FormData to send as POST request (includes files)
-    //         const formData = new FormData();
-    //         formData.append('email', email);
-    //         formData.append('password', password);
-    //         formData.append('fullname', fullname);
-    //         formData.append('username', username);
-    
-    //         // If avatar is provided, append it to the FormData
-    //         if (avatar) {
-    //             formData.append('avatar', avatar);
-    //         }
-    
-    //         // If cover image is provided, append it to the FormData
-    //         if (coverImage) {
-    //             formData.append('coverImage', coverImage);
-    //         }
-    
-    //         // console.log("Sending data to backend:", this.apiUrl, formData);
-    
-    //         // Send the request to the backend to create an account with images (if provided)
-    //         const response = await axios.post(`${this.apiUrl}/users/register`, formData, {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             },
-    //             withCredentials: false,
-    //         });
-    
-    //         // console.log("Account creation response:", response.data.data);
-    
-    //         if (response.data.success) {
-    //             // Get the temporary token from the response
-    //             const { temporaryToken } = response.data.data;
-    //             // console.log(temporaryToken)
-    //             // Now call the loginWithTemporaryToken function and pass the temporaryToken
-    //             return this.loginWithTemporaryToken({ temporaryToken });
-    //         }
-    //     } catch (error) {
-    //         console.error("Error creating account:", error);
-    //         throw error;  // Propagate the error to be handled by the calling function
-    //     }
-    // }
     
 
     async createAccount({ email, password, fullname, username, avatar, coverImage }) {
@@ -89,11 +42,10 @@ export class AuthService {
             }
         } catch (error) {
             // Handle errors and propagate meaningful messages
-            const errorMessage = error.response || "Username or email already Taken";
+            const errorMessage = error.response || "Error Creating Account try later or Use other Credentials";
             throw new Error(errorMessage); // Pass the error to be handled in the UI
         }
-    }
-    
+    }  
 
     async loginWithTemporaryToken({ temporaryToken }) {
         try {
@@ -118,8 +70,6 @@ export class AuthService {
             throw new Error(error.response ? error.response.data.message : error.message);
         }
     }
-
-    
 
     async login(data) {
         try {
@@ -168,9 +118,6 @@ export class AuthService {
             }
         }
     }
-    
-
-
 
     async googleLogin({ tokenId }) {
         try {

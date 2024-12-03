@@ -1,11 +1,15 @@
-import React from 'react'
-import { Login as LoginComp } from '../components'
+import React from 'react';
+import { Footer, Login as LoginComp } from '../components';
+
 function Login() {
   return (
-    <div className='py-8'>
-        <LoginComp />
+    <div>
+    <div className="min-h-screen flex items-center justify-center">
+      <LoginComp />
     </div>
-  )
+    <Footer/>
+    </div>
+  );
 }
 
-export default Login
+export default Login;

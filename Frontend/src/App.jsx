@@ -44,7 +44,7 @@ function App() {
           <Outlet /> // Render child routes here
         )}
       </main>
-      <Footer />
+      
     </div>
   );
 }

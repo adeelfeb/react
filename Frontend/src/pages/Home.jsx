@@ -9,6 +9,7 @@ import orbital from '../assets/orbital.png';
 import bot from '../assets/bot.png';
 import human1 from '../assets/human1.jpeg';
 import human2 from '../assets/human2.jpeg';
+import Footer from '../components/Footer/Footer';
 
 function Home() {
     const authStatus = useSelector((state) => state.auth.status); // Get auth status
@@ -21,6 +22,7 @@ function Home() {
             <div>
                 <Dashboard />
             </div>
+            
         );
     }
 
@@ -38,12 +40,12 @@ function Home() {
 
                 <div className="text-center lg:w-1/2 p-6 rounded-lg shadow-lg mb-6 lg:mb-0 z-10 relative">
                     <h1 className="text-8xl font-bold bg-gradient-to-r from-blue-900 via-purple-500 to-red-500 bg-clip-text text-transparent mb-4">
-                        Chatbot
+                        Video Summarizer
                     </h1>
-                    <h2 className="text-2xl font-semibold text-white mb-6">Welcome to the RAG LLM Model</h2>
+                    <h2 className="text-2xl font-semibold text-white mb-6">Unlock Knowledge with Instant Video Summaries</h2>
                     <h3 className="text-lg text-white mb-8 max-w-[60%] mx-auto font-normal">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam nobis tenetur cumque error quo vel placeat velit, ullam fuga vitae tempore possimus accusamus tempora corrupti nihil! Nisi molestiae veniam assumenda.
-                    </h3>
+                    Quickly grasp key insights from videos with summaries in English, Hindi, and Urdu. Access detailed transcripts and test your knowledge with interactive QnA and MCQs in English. Perfect for learners seeking clarity and depth, all in one place.
+                        </h3>
                     <Link to="/dashboard">
                         <button className="px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition duration-200">
                             Get Started
@@ -80,13 +82,13 @@ function Home() {
                             </div>
                             <TypeAnimation
                                 sequence={[
-                                    "Human1: Summarize this Pdf",
+                                    "Summarize this Video",
                                     2000, () => { setTypingStatus("Bot") },
-                                    "Bot: Your content is based on Food...",
+                                    "Bot: Your content is about",
                                     2000, () => { setTypingStatus("Human2") },
-                                    "Human2: What type questions are in this Pdf?",
+                                    "Give me Quiz based on this Youtube Video",
                                     2000, () => { setTypingStatus("Bot") },
-                                    "Bot: It contains mcqs on...",
+                                    "Here are the mcqs and Short questions",
                                     2000, () => { setTypingStatus("Human1") },
                                 ]}
                                 cursor={true}
@@ -99,6 +101,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

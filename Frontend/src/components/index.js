@@ -9,7 +9,11 @@ import Login from "./Login";
 import AuthLayout from "./AuthLayout";
 import Input from "./Input";
 import Select from './Select'
-
+import ForgetPassword from "../pages/ForgetPassword";
+import ChangePassword from "./usersFuntions/ChangePassword";
+import UpdateAvatar from "./usersFuntions/UpdateAvatar";
+import UpdateAccountDetails from "./usersFuntions/UpdateAccountDetails";
+import CurrentUserDetails from "./usersFuntions/CurrentUserDetails";
 export {
     Header,
     Footer,
@@ -21,5 +25,10 @@ export {
     Login,
     AuthLayout,
     Input,
-    Select
+    Select,
+    ForgetPassword,
+    ChangePassword,
+    UpdateAvatar,
+    UpdateAccountDetails,
+    CurrentUserDetails
 }

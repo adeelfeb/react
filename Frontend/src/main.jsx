@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import InputURL from './pages/InputURL.jsx'
 import Dashboard from './components/Header/DashBoard.jsx'
 import UserHistory from './pages/UserHistory.jsx'
+import ForgetPassword from './pages/ForgetPassword.jsx'
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
                     <InputURL />
                 </AuthLayout>
             ),
+        },
+        {
+            path: "/forgot-password", // The route for ForgetPassword
+            element: <ForgetPassword/>
         },
         
     ],

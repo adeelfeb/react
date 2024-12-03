@@ -1,116 +1,51 @@
-// import React, { useState } from 'react';
-// import videoService from "../AserverAuth/config"; // Import your video service
-// import VideoDetails from './VideoDetails'; // Import the new component
-
-// const InputURL = () => {
-//   const [url, setUrl] = useState('');
-//   const [error, setError] = useState('');
-//   const [videoData, setVideoData] = useState(null); // Store the video details to pass to VideoDetails component
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     // Validate YouTube URL
-//     const videoId = getYouTubeVideoId(url);
-//     if (!videoId) {
-//       setError('Please enter a valid YouTube video URL.');
-//       setVideoData(null); // Reset video data
-//       return;
-//     }
-
-//     setError('');
-
-//     try {
-//       // Send URL to the server and get the response
-//       const response = await videoService.addVideo(url);
-//       console.log('Video added:', response); // Log the server response
-//       setVideoData(response.data); // Set the response data to display
-//     } catch (error) {
-//       console.error('Error adding video:', error); // Log any errors
-//       setVideoData(null); // Reset video data if an error occurs
-//     }
-//   };
-
-//   // Function to extract YouTube video ID from URL
-//   const getYouTubeVideoId = (url) => {
-//     const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^&\n]{11})/;
-//     const match = url.match(regex);
-//     return match ? match[1] : null; // Return the video ID or null if not found
-//   };
-
-//   return (
-//     <div>
-//       <form className="flex space-x-2" onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           className="flex-1 border p-2 rounded"
-//           value={url}
-//           onChange={(e) => setUrl(e.target.value)}
-//           placeholder="Enter YouTube video URL"
-//         />
-//         <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition">
-//           Submit
-//         </button>
-//       </form>
-
-//       {error && <p className="text-red-500 mt-2">{error}</p>} {/* Display error message */}
-//       {videoData && <VideoDetails data={videoData} />} {/* Pass the response data to the VideoDetails component */}
-//     </div>
-//   );
-// };
-
-// export default InputURL;
-
-
-
 import React, { useState } from "react";
-import videoService from "../AserverAuth/config"; // Import your video service
-import VideoDetails from "./VideoDetails"; // Import the new component
+import { useDispatch, useSelector } from "react-redux";
+import { setVideoData, clearVideoData } from "../store/currentVideoSlice"; // Redux actions
+import videoService from "../AserverAuth/config";
+import VideoDetails from "./VideoDetails";
 
 const InputURL = () => {
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
-  const [videoData, setVideoData] = useState(null); // Store the video details to pass to VideoDetails component
-  const [isLoading, setIsLoading] = useState(false); // Track loading state
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const videoData = useSelector((state) => state.currentVideo.videoData); // Access Redux store
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate YouTube URL
     const videoId = getYouTubeVideoId(url);
     if (!videoId) {
       setError("Please enter a valid YouTube video URL.");
-      setVideoData(null); // Reset video data
+      dispatch(clearVideoData()); // Reset video data in Redux
       return;
     }
 
     setError("");
-    setIsLoading(true); // Start loading animation
+    setIsLoading(true);
 
     try {
-      // Send URL to the server and get the response
       const response = await videoService.addVideo(url);
-      // console.log("Video added:", response); // Log the server response
-      setVideoData(response.data); // Set the response data to display
+      dispatch(setVideoData(response.data)); // Update Redux store
     } catch (error) {
-      console.error("Error adding video:", error); // Log any errors
-      setVideoData(null); // Reset video data if an error occurs
+      console.error("Error adding video:", error);
+      dispatch(clearVideoData()); // Clear Redux state on error
     } finally {
-      setIsLoading(false); // Stop loading animation
+      setIsLoading(false);
     }
   };
 
-  // Function to extract YouTube video ID from URL
   const getYouTubeVideoId = (url) => {
     const regex =
       /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^&\n]{11})/;
     const match = url.match(regex);
-    return match ? match[1] : null; // Return the video ID or null if not found
+    return match ? match[1] : null;
   };
 
   return (
-    <div>
-      <form className="flex space-x-2" onSubmit={handleSubmit}>
+    <div className="relative">
+      <form className="flex space-x-2 mb-4" onSubmit={handleSubmit}>
         <input
           type="text"
           className="flex-1 border p-2 rounded"
@@ -127,13 +62,22 @@ const InputURL = () => {
         </button>
       </form>
 
-      {error && <p className="text-red-500 mt-2">{error}</p>} {/* Display error message */}
-      {isLoading && (
-        <div className="flex justify-center mt-4">
-          <div className="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-        </div>
-      )} {/* Show loading animation */}
-      {videoData && <VideoDetails data={videoData} />} {/* Pass the response data to the VideoDetails component */}
+      {error && <p className="text-red-500 mb-2">{error}</p>}
+
+      <div className="relative">
+        {/* Overlay loader on top of the video details or placeholder */}
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70 z-10">
+            <div className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+          </div>
+        )}
+
+        {videoData ? (
+          <VideoDetails data={videoData} />
+        ) : (
+          <p className="text-gray-500">Enter a Valid URL to see details</p>
+        )}
+      </div>
     </div>
   );
 };

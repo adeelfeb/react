@@ -9,13 +9,13 @@ function Header() {
 
   return (
     <header className="bg-white shadow-md">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
+      <div className="container mx-auto flex items-center justify-between py-2 px-2">
         {/* App Title */}
         <h1
           className="text-2xl font-semibold text-gray-700 hover:cursor-pointer"
           onClick={() => navigate('/')}
         >
-          Chatbot App
+          Watch To Work
         </h1>
 
         {/* User Profile or Login/Signup Buttons */}

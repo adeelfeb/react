@@ -1,10 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice'; // Ensure the path is correct
+// store.js
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./authSlice";
+import currentVideoReducer from "./currentVideoSlice"; // Import the slice
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    // Add other reducers here if you have them
+    currentVideo: currentVideoReducer, // Add the currentVideo slice
   },
 });
 
