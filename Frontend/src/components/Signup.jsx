@@ -6,6 +6,8 @@ import { Button, Input, Logo } from './index.js';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FiImage } from 'react-icons/fi'; // Importing FiImage from react-icons
+import conf from '../conf/conf';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 function Signup() {
     const navigate = useNavigate();
@@ -14,6 +16,32 @@ function Signup() {
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [avatar, setAvatar] = useState(null);
+
+
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        const { credential } = credentialResponse;
+        setLoading(true); // Start loading
+        try {
+            const response = await authService.googleLogin({ tokenId: credential });
+            console.log('Backend response:', response);
+            
+            // Assuming successful login also retrieves user data
+            const userData = await authService.getCurrentUser();
+            dispatch(setUserData(userData));
+            dispatch(setLoginStatus(true));
+
+        } catch (error) {
+            console.error('Login failed:', error);
+            setError(error.response ? error.response.data.message : error.message);
+        } finally {
+            setLoading(false); // Stop loading
+        }
+    };
+
+    const handleGoogleFailure = () => {
+        console.error('Google Login Failed');
+    };
 
     const create = async (data) => {
         setError("");
@@ -124,6 +152,33 @@ function Signup() {
                         Create Account
                     </Button>
                 </form>
+                {/* Divider for Google Sign In */}
+                <div className="mt-4 flex items-center justify-between">
+                    <hr className="border-gray-300 flex-grow" />
+                    <span className="text-gray-600 mx-4">or</span>
+                    <hr className="border-gray-300 flex-grow" />
+                </div>
+
+                {/* Google Login Button */}
+                <div className="mt-4">
+                    <GoogleOAuthProvider clientId={conf.googleClientId}>
+                        <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={handleGoogleFailure}
+                            useOneTap
+                            redirectUri={conf.googleRedirectUri}
+                            render={(renderProps) => (
+                                <Button
+                                    onClick={renderProps.onClick}
+                                    disabled={renderProps.disabled}
+                                    className="w-full py-3 bg-red-600 text-white rounded-md flex justify-center items-center gap-2 hover:bg-red-700 transition-colors duration-200"
+                                >
+                                    Sign up with Google
+                                </Button>
+                            )}
+                        />
+                    </GoogleOAuthProvider>
+                </div>
             </div>
         </div>
     );

@@ -90,6 +90,33 @@ class VideoService {
           throw new Error(error.response ? error.response.data.message : error.message); // Propagate the error
         }
       }   
+
+
+    async getKeyConcepts(videoId) {
+        try {
+          const accessToken = localStorage.getItem('accessToken');
+          if (!accessToken) {
+            console.log('No access token found in localStorage');
+            return null; // Return null if access token is not found
+          }
+    
+          const response = await axios.get(
+            `${this.apiUrl}/users/keyconcept`, // API endpoint for getting the summary
+            {
+              headers: {
+                "Authorization": `Bearer ${accessToken}`, // Attach the access token in the Authorization header
+              },
+              params: { videoId }, // Pass videoId as a query parameter
+              withCredentials: false, // No need to send cookies with this request
+            }
+          );
+    
+          return response.data; // Return the summary data
+        } catch (error) {
+          console.error('Error fetching summary:', error);
+          throw new Error(error.response ? error.response.data.message : error.message); // Propagate the error
+        }
+      }   
     
       async getqnas(videoId) {
         try {

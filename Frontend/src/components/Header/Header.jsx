@@ -15,7 +15,7 @@ function Header() {
           className="text-2xl font-semibold text-gray-700 hover:cursor-pointer"
           onClick={() => navigate('/')}
         >
-          Watch To Work
+          From Watch To Work
         </h1>
 
         {/* User Profile or Login/Signup Buttons */}

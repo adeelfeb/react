@@ -48,7 +48,7 @@ function Dashboard() {
       >
         <div>
           <p className="text-xl font-semibold mb-4">
-            Welcome, {user.fullname || user.username}!
+            Welcome, {user.fullname || user.username}
           </p>
 
           <div className="flex flex-col space-y-4">
