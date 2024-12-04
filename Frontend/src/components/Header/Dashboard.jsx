@@ -6,7 +6,7 @@ import UserHistory from "../../pages/UserHistory";
 import { logout } from "../../store/authSlice"; // Assuming you have a logout action
 import authService from "../../AserverAuth/auth";
 import videoService from "../../AserverAuth/config";
-import { setUserHistory } from "../../store/currentVideoSlice"; // Import the action'
+import { setUserHistory, clearVideoData } from "../../store/currentVideoSlice"; // Import the action'
 import Settings from "../../pages/Settings";
 
 function Dashboard() {
@@ -20,6 +20,7 @@ function Dashboard() {
   const logoutHandler = () => {
     authService.logout().then(() => {
       dispatch(logout()); // Dispatch the logout action to update the Redux store
+      dispatch(clearVideoData()); // Clear the current video data from the Redux store
       navigate("/login"); // Redirect to the login page
     });
   };

@@ -40,11 +40,11 @@ function Home() {
 
                 <div className="text-center lg:w-1/2 p-6 rounded-lg shadow-lg mb-6 lg:mb-0 z-10 relative">
                     <h1 className="text-8xl font-bold bg-gradient-to-r from-blue-900 via-purple-500 to-red-500 bg-clip-text text-transparent mb-4">
-                        Video Summarizer
+                        From Watch To Work
                     </h1>
-                    <h2 className="text-2xl font-semibold text-white mb-6">Unlock Knowledge with Instant Video Summaries</h2>
+                    <h2 className="text-2xl font-semibold text-white mb-6">Transforming video learning with automated assessment</h2>
                     <h3 className="text-lg text-white mb-8 max-w-[60%] mx-auto font-normal">
-                    Quickly grasp key insights from videos with summaries in English, Hindi, and Urdu. Access detailed transcripts and test your knowledge with interactive QnA and MCQs in English. Perfect for learners seeking clarity and depth, all in one place.
+                    Quickly grasp key insights from videos with summaries in English, Hindi, and Urdu. Access detailed transcripts and test your knowledge with interactive assessments in English. Perfect for learners seeking clarity and depth, all in one place.
                         </h3>
                     <Link to="/dashboard">
                         <button className="px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition duration-200">
@@ -65,7 +65,7 @@ function Home() {
                     </div>
 
                     {/* Typing Animation */}
-                    <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md space-y-4">
+                    {/* <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md space-y-4">
                         <div className="flex items-center space-x-4">
                             <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-700">
                                 <img
@@ -98,7 +98,7 @@ function Home() {
                                 omitDeletionAnimation={true}
                             />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <Footer/>

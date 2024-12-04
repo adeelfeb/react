@@ -30,6 +30,7 @@ const InputURL = () => {
       dispatch(setVideoData(response.data)); // Update Redux store
     } catch (error) {
       console.error("Error adding video:", error);
+      alert("Error adding video Duration should be less than 20 min")
       dispatch(clearVideoData()); // Clear Redux state on error
     } finally {
       setIsLoading(false);
@@ -75,7 +76,7 @@ const InputURL = () => {
         {videoData ? (
           <VideoDetails data={videoData} />
         ) : (
-          <p className="text-gray-500">Enter a Valid URL to see details</p>
+          <p className="text-gray-500">Enter a Valid URL to see details with duration less than 20 min</p>
         )}
       </div>
     </div>
@@ -83,3 +84,4 @@ const InputURL = () => {
 };
 
 export default InputURL;
+

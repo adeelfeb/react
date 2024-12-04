@@ -80,11 +80,7 @@ function Signup() {
             ) : null}
 
             <div className="mx-auto w-full max-w-lg bg-white rounded-xl p-10 shadow-lg border border-gray-200">
-                <div className="mb-2 flex justify-center">
-                    <span className="inline-block w-full max-w-[100px]">
-                        <Logo width="100%" />
-                    </span>
-                </div>
+                
                 <h2 className="text-center text-2xl font-semibold text-gray-800">Sign up to create account</h2>
                 <p className="mt-2 text-center text-base text-gray-600">
                     Already have an account?&nbsp;
